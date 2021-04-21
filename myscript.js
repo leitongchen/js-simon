@@ -5,6 +5,17 @@ function randomNumGen(maxNum) {
     return randomNum;
 }
 
+// funzione che verifica che il numero inserito non sia già presente 
+function checkForDouble(numbersArray, numToCheck) {
+
+    var findIndex = numbersArray.indexOf(numToCheck);
+
+    if ( findIndex > -1) {
+        return findIndex;
+    }
+    return -1; 
+}
+
 (function () {
 
     // FUNZIONE che crea numeri random e li pusha in un array 
@@ -20,7 +31,6 @@ function randomNumGen(maxNum) {
 
 
 
-
     /* si esegue un alert che contiene 5 numeri da memorizzare
      */
     alert(fiveNumbers.join(", ") + " - Memorizza questi 5 numeri, quando sei pronto, premi OK.");
@@ -29,7 +39,16 @@ function randomNumGen(maxNum) {
         parte il setTimeout di 30 secondi 
      */
 
+    setTimeout(function() {
+    
+        var userNumbers = []
+        while (userNumbers.length < 5) {
+            var userInput = parseInt(prompt("Ora reinserisci i 5 numeri che hai memorizzato. Ne hai inseriti " + userNumbers.length))
 
+        } 
+
+
+    }, 30000);
 
 
 
