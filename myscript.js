@@ -1,6 +1,6 @@
 function randomNumGen(maxNum) {
 
-    var randomNum = Math.ceil(Math.random() * maxNum); 
+    var randomNum = Math.ceil(Math.random() * maxNum);
 
     return randomNum;
 }
@@ -10,22 +10,39 @@ function checkForDouble(numbersArray, numToCheck) {
 
     var findIndex = numbersArray.indexOf(numToCheck);
 
-    if ( findIndex > -1) {
+    if (findIndex > -1) {
         return findIndex;
     }
-    return -1; 
+    return -1;
 }
+
+// FUNZIONE che verifica che i numeri inseriti dall'utente corrispondano a quelli del primo alert
+// i numeri corretti vengono inseriti in una nuova array correctNumbers
+
+function checkTheNumber(numbersArray, numToCheck) {
+
+    var findTheNumber = numbersArray.includes(numToCheck);
+
+    if (!findTheNumber) {
+        return false;
+    }
+    return true; 
+}
+
 
 (function () {
 
     // FUNZIONE che crea numeri random e li pusha in un array 
-    var fiveNumbers = []; 
- 
+    var fiveNumbers = [];
+
     while (fiveNumbers.length < 5) {
 
-        var randomNumber = randomNumGen(50);
-        fiveNumbers.push(randomNumber); 
-    }
+        var randomNumber = randomNumGen(1000);
+        if (checkForDouble(fiveNumbers, randomNumber) === -1) {
+
+            fiveNumbers.push(randomNumber);
+        }
+    } 
 
     console.log(fiveNumbers);
 
@@ -33,34 +50,56 @@ function checkForDouble(numbersArray, numToCheck) {
 
     /* si esegue un alert che contiene 5 numeri da memorizzare
      */
-    alert(fiveNumbers.join(", ") + " - Memorizza questi 5 numeri, quando sei pronto, premi OK.");
+    alert(fiveNumbers.join(", ") + " - Memorizza questi 5 numeri, quando sei prontə, premi OK.");
 
     /* quando utente clicca ok
         parte il setTimeout di 30 secondi 
-     */
-
-    setTimeout(function() {
-    
-        var userNumbers = []
-        while (userNumbers.length < 5) {
-            var userInput = parseInt(prompt("Ora reinserisci i 5 numeri che hai memorizzato. Ne hai inseriti " + userNumbers.length))
-
-        } 
-
-
-    }, 30000);
-
-
+    */
 
     /* Trascorsi 30 secondi compare prompt
-        in cui l'utente reinserisce i 5 numeri random che ha visualizzato
+    in cui l'utente reinserisce i 5 numeri random che ha visualizzato
     */
-    // Inserisco prompt dentro un ciclo così compare finché l'utente non ha inserito 5 valori
-    // I valori vengono pushati dentro un array userNumbers
+    setTimeout(numbersMemory, 5000);
+
+    function numbersMemory() {
+
+        // Inserisco prompt dentro un ciclo così compare finché l'utente non ha inserito 5 valori
+        // I valori vengono pushati dentro un array userNumbers
+
+        var userNumbers = [];
+
+        var guessedNumbers = [];
+
+        while (userNumbers.length < 5) {
+
+            var userInput = parseInt(prompt("Ora reinserisci i 5 numeri che hai memorizzato. Ne hai inseriti " + userNumbers.length))
+
+            if (checkForDouble(userNumbers, userInput) === -1) {
+                
+                userNumbers.push(userInput);
+                
+                // FUNZIONE che verifica che i numeri inseriti dall'utente corrispondano a quelli del primo alert
+                    // i numeri corretti vengono inseriti in una nuova array guessedNumbers
+                if (checkTheNumber(fiveNumbers, userInput)) {
+                    guessedNumbers.push(userInput); 
+                }
+
+            } else {
+                alert("Hai già inserito questo numero.")
+            }
+        }
+
+        console.log("Il gioco è finito. Questi sono i numeri che hai inserito " + userNumbers.join(" - ") + ".");
+        console.log("Questi sono i numeri corretti che hai inserito " + guessedNumbers.join(" - ") + ". Ne hai indovinati " + guessedNumbers.length + ".");
+        console.log("Questi erano i numeri che dovevi memorizzare " + fiveNumbers.join(" - "))
+
+    }
 
 
-    // FUNZIONE che verifica che i numeri inseriti dall'utente corrispondano a quelli del primo alert
-    // i numeri corretti vengono inseriti in una nuova array correctNumbers
+    
+
+
+
 
 
 
