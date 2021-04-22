@@ -29,8 +29,8 @@ function checkTheNumber(numbersArray, numToCheck) {
     return true; 
 }
 
-function inputIsValid(input){
-    if (isNaN(input) || input < 1 || input > 100) {
+function inputIsValid(input, maxNum){
+    if (isNaN(input) || input < 1 || input > maxNum) {
         return false;
     }
     return true;
@@ -39,15 +39,22 @@ function inputIsValid(input){
 
 (function () {
 
+    // qui indica la quantità di numeri da memorizzare/che l'utente deve inserire
+    var numberToGuess = 5; 
+
+    var secondsToWait = 5; 
+    var rangeOfNumbers = 100; 
+
     // FUNZIONE che crea numeri random e li pusha in un array 
     var fiveNumbers = [];
+    
     var userNumbers = [];
     var guessedNumbers = [];
+    
 
+    while (fiveNumbers.length < numberToGuess) {
 
-    while (fiveNumbers.length < 5) {
-
-        var randomNumber = randomNumGen(100);
+        var randomNumber = randomNumGen(rangeOfNumbers);
         if (checkForDouble(fiveNumbers, randomNumber) === -1) {
 
             fiveNumbers.push(randomNumber);
@@ -65,18 +72,18 @@ function inputIsValid(input){
     /* Trascorsi 30 secondi compare prompt
     in cui l'utente reinserisce i 5 numeri random che ha visualizzato
     */
-    setTimeout(numbersMemory, 30000);
+    setTimeout(numbersMemory, secondsToWait * 1000);
 
     function numbersMemory() {
 
         // Inserisco prompt dentro un ciclo così compare finché l'utente non ha inserito 5 valori
         // I valori vengono pushati dentro un array userNumbers
 
-        while (userNumbers.length < 5) {
+        while (userNumbers.length < numberToGuess) {
 
-            var userInput = parseInt(prompt("Ora reinserisci i 5 numeri che hai memorizzato. Ne hai inseriti " + userNumbers.length))
+            var userInput = parseInt(prompt("Ora reinserisci i " + numberToGuess + " numeri che hai memorizzato. Ne hai inseriti " + userNumbers.length))
 
-            if (!inputIsValid(userInput)) {
+            if (!inputIsValid(userInput, rangeOfNumbers)) {
                 alert("Non hai inserito un valore valido. Puoi inserire solo numeri a partire da 1 a 100.")
             
             } else if (checkForDouble(userNumbers, userInput) === -1) {
@@ -98,16 +105,6 @@ function inputIsValid(input){
         console.log("Il gioco è finito. Questi sono i numeri che hai inserito " + userNumbers.join(" - ") + ".");
         console.log("Questi sono i numeri corretti che hai inserito " + guessedNumbers.join(" - ") + ". Ne hai indovinati " + guessedNumbers.length + ".");
     }
-
-
-    
-
-
-
-
-
-
-
 })();
 
 
